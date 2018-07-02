@@ -1,0 +1,8 @@
+/home/fuschinigrijo/Desktop/BitBotBackToTheFuture/BitBotBackToTheFuture/bin/Debug/BitBotBackToTheFuture.exe
+/home/fuschinigrijo/Desktop/BitBotBackToTheFuture/BitBotBackToTheFuture/bin/Debug/BitBotBackToTheFuture.pdb
+/home/fuschinigrijo/Desktop/BitBotBackToTheFuture/BitBotBackToTheFuture/bin/Debug/Newtonsoft.Json.dll
+/home/fuschinigrijo/Desktop/BitBotBackToTheFuture/BitBotBackToTheFuture/bin/Debug/Newtonsoft.Json.xml
+/home/fuschinigrijo/Desktop/BitBotBackToTheFuture/BitBotBackToTheFuture/obj/Debug/BitBotBackToTheFuture.csprojResolveAssemblyReference.cache
+/home/fuschinigrijo/Desktop/BitBotBackToTheFuture/BitBotBackToTheFuture/obj/Debug/BitBotBackToTheFuture.csproj.CoreCompileInputs.cache
+/home/fuschinigrijo/Desktop/BitBotBackToTheFuture/BitBotBackToTheFuture/obj/Debug/BitBotBackToTheFuture.exe
+/home/fuschinigrijo/Desktop/BitBotBackToTheFuture/BitBotBackToTheFuture/obj/Debug/BitBotBackToTheFuture.pdb
