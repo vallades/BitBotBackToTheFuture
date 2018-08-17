@@ -16,11 +16,10 @@ namespace BitBotBackToTheFuture
 
 
         //REAL NET
-        private static string bitmexKey = "jBWSch0Th4taWmju8s-50JYV";
+        private static string bitmexKey = "";
         private static string bitmexSecret = "";
         private static string bitmexDomain = "https://www.bitmex.com";
 		static BitMEX.BitMEXApi bitMEXApi = null;
-		//"{\"orderID\":\"94636c94-ceb5-6717-b93f-f9dcbfb154bf\",\"clOrdID\":\"\",\"clOrdLinkID\":\"\",\"account\":488381,\"symbol\":\"XBTUSD\",\"side\":\"Sell\",\"simpleOrderQty\":null,\"orderQty\":1,\"price\":6344.5,\"displayQty\":null,\"stopPx\":null,\"pegOffsetValue\":null,\"pegPriceType\":\"\",\"currency\":\"USD\",\"settlCurrency\":\"XBt\",\"ordType\":\"Market\",\"timeInForce\":\"ImmediateOrCancel\",\"execInst\":\"\",\"contingencyType\":\"\",\"exDestination\":\"XBME\",\"ordStatus\":\"Filled\",\"triggered\":\"\",\"workingIndicator\":false,\"ordRejReason\":\"\",\"simpleLeavesQty\":0,\"leavesQty\":0,\"simpleCumQty\":0.00015762,\"cumQty\":1,\"avgPx\":6344.5,\"multiLegReportingType\":\"SingleSecurity\",\"text\":\"Submitted via API.\",\"transactTime\":\"2018-07-01T02:37:17.152Z\",\"timestamp\":\"2018-07-01T02:37:17.152Z\"}"
         public static void Main(string[] args)
         {
 			Console.WriteLine("Deleron - Back to the future - v0.0.0.1 - Bitmex version");
