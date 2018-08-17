@@ -73,7 +73,7 @@ namespace BitMEX
 
         private long GetNonce()
         {
-            DateTime yearBegin = new DateTime(1990, 1, 1);
+            DateTime yearBegin = new DateTime(2018, 1, 1);
             return DateTime.UtcNow.Ticks - yearBegin.Ticks;
         }
 
