@@ -1,6 +1,28 @@
 # BitBotBackToTheFuture
 Bot of Bitmax
 
+Example file "key.txt" (Configuration)
+
+{
+"key": "SUAKEY",  
+"secret": "SECRET",  
+"domain": "https://www.bitmex.com",  
+"pair": "XBTUSD",  
+"contract": 30,  
+"profit": 0.01,  
+"fee": 0.075,  
+"long": "enable",  
+"short": "enable",  
+"interval": 15000,  
+"intervalOrder": 60000,  
+"timeGraph":"1m",  
+"indicators": [    
+{ "name": "rsi", "period": 7, "limit": 40 },    
+{ "name": "emaShort",  "period": 3   },    
+{ "name": "emaLong", "period": 5  }  	
+]
+}
+
 
 DONATE
 
