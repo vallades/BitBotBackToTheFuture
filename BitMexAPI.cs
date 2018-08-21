@@ -278,6 +278,11 @@ namespace BitMEX
             return Query("PUT", "/order", param, true, true);
         }
 
+        public string GetWallet()
+        {            
+            return Query("GET", "/user/wallet", null, true);
+        }
+
 
         #endregion
 

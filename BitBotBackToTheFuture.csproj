@@ -32,11 +32,40 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\BitMexSampleBot-master\BitMexSampleBot\bin\Debug\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TA-Lib-Core">
+      <HintPath>..\..\..\..\..\programas\powerpump\Bin\TA-Lib-Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="indicators\IIndicator.cs" />
+    <Compile Include="indicators\IndicatorADX.cs" />
+    <Compile Include="indicators\IndicatorBase.cs" />
+    <Compile Include="indicators\IndicatorBBANDS.cs" />
+    <Compile Include="indicators\IndicatorCCI.cs" />
+    <Compile Include="indicators\IndicatorChaikin.cs" />
+    <Compile Include="indicators\IndicatorCMO.cs" />
+    <Compile Include="indicators\IndicatorDI.cs" />
+    <Compile Include="indicators\IndicatorDM.cs" />
+    <Compile Include="indicators\IndicatorDX.cs" />
+    <Compile Include="indicators\IndicatorMA.cs" />
+    <Compile Include="indicators\IndicatorMACD.cs" />
+    <Compile Include="indicators\IndicatorMFI.cs" />
+    <Compile Include="indicators\IndicatorMOM.cs" />
+    <Compile Include="indicators\IndicatorPPO.cs" />
+    <Compile Include="indicators\IndicatorROC.cs" />
+    <Compile Include="indicators\IndicatorRSI.cs" />
+    <Compile Include="indicators\IndicatorSAR.cs" />
+    <Compile Include="indicators\IndicatorSTOCH.cs" />
+    <Compile Include="indicators\IndicatorSTOCHRSI.cs" />
+    <Compile Include="indicators\IndicatorTrix.cs" />
+    <Compile Include="indicators\IndicatorULTOSC.cs" />
+    <Compile Include="indicators\IndicatorWILLR.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BitMexAPI.cs" />
+    <Compile Include="WebServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
