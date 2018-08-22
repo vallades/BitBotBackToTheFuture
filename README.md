@@ -4,23 +4,81 @@ Bot of Bitmax
 Example file "key.txt" (Configuration)
 
 {
-"key": "SUAKEY",  
-"secret": "SECRET",  
-"domain": "https://www.bitmex.com",  
-"pair": "XBTUSD",  
-"contract": 30,  
-"profit": 0.01,  
-"fee": 0.075,  
-"long": "enable",  
-"short": "enable",  
-"interval": 15000,  
-"intervalOrder": 60000,  
-"timeGraph":"1m",  
-"indicators": [    
-{ "name": "rsi", "period": 7, "limit": 40 },    
-{ "name": "emaShort",  "period": 3   },    
-{ "name": "emaLong", "period": 5  }  	
-]
+  
+
+"key": "SUAKEY",
+  
+"secret": "SECRETKEY",
+  
+"domain": "https://www.bitmex.com",
+  
+"pair": "XBTUSD",
+  
+"contract": 30,
+  
+"profit": 0.09,
+  
+"fee": 0.075,
+  
+"long": "enable",
+  
+"short": "enable",
+  
+"interval": 15000,
+  
+"intervalOrder": 60000,
+  
+"timeGraph":"1m",
+  
+"webserver":"enable",
+  
+"webserverConfig":"http://localhost:5321/bot/",
+  
+"webserverIntervalCapture":300000,
+  
+
+"indicatorsEntry": [
+    
+
+	{
+       "name": "MFI",
+      
+		"period": 8    
+	},
+    
+	{
+      
+		"name": "RSI",
+     
+		"period": 7    
+        },
+    
+	{
+      
+		"name": "BBANDS",
+      
+		"period": 9    
+	}
+  
+	
+
+	],
+
+
+
+"indicatorsEntryCross": [
+    
+
+	{
+       "name": "MFI",
+      
+		"period": 8 
+	}    	
+
+	]
+
+
+
 }
 
 
