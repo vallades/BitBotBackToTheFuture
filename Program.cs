@@ -16,7 +16,7 @@ namespace BitBotBackToTheFuture
 
 
         //REAL NET
-        static string version = "0.0.0.3";
+        static string version = "0.0.0.4";
         static string location = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\";
         static string bitmexKey = "";
         static string bitmexSecret = "";
@@ -363,7 +363,12 @@ namespace BitBotBackToTheFuture
 
                     foreach (var item in lstIndicatorsEntry)
                     {
-                        if (item.GetOperation(arrayPriceOpen, arrayPriceClose, arrayPriceLow, arrayPriceHigh, arrayPriceVolume) != Operation.buy)
+                        Operation operationBuy = item.GetOperation(arrayPriceOpen, arrayPriceClose, arrayPriceLow, arrayPriceHigh, arrayPriceVolume);
+                        log("Indicator: " + item.getName());
+                        log("Result1: " + item.getResult());
+                        log("Result2: " + item.getResult2());
+                        log("Operation: " + operationBuy.ToString());
+                        if (operationBuy != Operation.buy)
                         {
                             operation = "nothing";
                             break;
@@ -376,10 +381,16 @@ namespace BitBotBackToTheFuture
                         getCandles();
                         while (true)
                         {
+                            log("wait operation long...");
                             getCandles();
                             foreach (var item in lstIndicatorsEntryCross)
                             {
-                                if (item.GetOperation(arrayPriceOpen, arrayPriceClose, arrayPriceLow, arrayPriceHigh, arrayPriceVolume) != Operation.buy)
+                                Operation operationBuy = item.GetOperation(arrayPriceOpen, arrayPriceClose, arrayPriceLow, arrayPriceHigh, arrayPriceVolume);
+                                log("Indicator Cross: " + item.getName());
+                                log("Result1: " + item.getResult());
+                                log("Result2: " + item.getResult2());
+                                log("Operation: " + operationBuy.ToString());
+                                if (operationBuy != Operation.buy)
                                 {
                                     operation = "long";
                                     break;
@@ -387,6 +398,8 @@ namespace BitBotBackToTheFuture
                             }
                             log("wait " + interval + "ms");
                             Thread.Sleep(interval);
+                            if (operation != "buy")
+                                break;
                         }
                     }
 
@@ -395,7 +408,12 @@ namespace BitBotBackToTheFuture
 
                     foreach (var item in lstIndicatorsEntry)
                     {
-                        if (item.GetOperation(arrayPriceOpen, arrayPriceClose, arrayPriceLow, arrayPriceHigh, arrayPriceVolume) != Operation.sell)
+                        Operation operationSell = item.GetOperation(arrayPriceOpen, arrayPriceClose, arrayPriceLow, arrayPriceHigh, arrayPriceVolume);
+                        log("Indicator: " + item.getName());
+                        log("Result1: " + item.getResult());
+                        log("Result2: " + item.getResult2());
+                        log("Operation: " + operationSell.ToString());
+                        if (operationSell != Operation.sell)
                         {
                             operation = "nothing";
                             break;
@@ -408,10 +426,16 @@ namespace BitBotBackToTheFuture
                         getCandles();
                         while (true)
                         {
+                            log("wait operation short...");
                             getCandles();
                             foreach (var item in lstIndicatorsEntryCross)
                             {
-                                if (item.GetOperation(arrayPriceOpen, arrayPriceClose, arrayPriceLow, arrayPriceHigh, arrayPriceVolume) != Operation.sell)
+                                Operation operationSell = item.GetOperation(arrayPriceOpen, arrayPriceClose, arrayPriceLow, arrayPriceHigh, arrayPriceVolume);
+                                log("Indicator Cross: " + item.getName());
+                                log("Result1: " + item.getResult());
+                                log("Result2: " + item.getResult2());
+                                log("Operation: " + operationSell.ToString());
+                                if (operationSell != Operation.sell)
                                 {
                                     operation = "short";
                                     break;
@@ -419,6 +443,9 @@ namespace BitBotBackToTheFuture
                             }
                             log("wait " + interval + "ms");
                             Thread.Sleep(interval);
+
+                            if (operation != "sell")
+                                break;
                         }
                     }
 
