@@ -39,6 +39,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database.cs" />
     <Compile Include="indicators\IIndicator.cs" />
     <Compile Include="indicators\IndicatorADX.cs" />
     <Compile Include="indicators\IndicatorBase.cs" />

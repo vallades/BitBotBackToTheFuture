@@ -17,6 +17,11 @@ public class IndicatorWILLR : IndicatorBase, IIndicator
         return "WILLR";
     }
 
+    public TypeIndicator getTypeIndicator()
+    {
+        return TypeIndicator.Normal;
+    }
+
     public void setPeriod(int period)
     {
         this.period = period;
@@ -31,6 +36,10 @@ public class IndicatorWILLR : IndicatorBase, IIndicator
     {
         return this.result2;
     }
+    public Tendency getTendency()
+    {
+        return this.tendency;
+    }
 
     public Operation GetOperation(double[] arrayPriceOpen, double[] arrayPriceClose, double[] arrayPriceLow, double[] arrayPriceHigh, double[] arrayVolume)
     {
@@ -42,6 +51,14 @@ public class IndicatorWILLR : IndicatorBase, IIndicator
             TicTacTec.TA.Library.Core.WillR(0, arrayPriceClose.Length - 1, arrayPriceHigh, arrayPriceLow, arrayPriceClose, this.period, out outBegidx, out outNbElement, arrayresultTA);
             double value = arrayresultTA[outNbElement - 1];
             this.result = value;
+
+            this.tendency = Tendency.nothing;
+            if (arrayresultTA[outNbElement - 2] < arrayresultTA[outNbElement - 1] && arrayresultTA[outNbElement - 3] < arrayresultTA[outNbElement - 2])
+                this.tendency = Tendency.high;
+            if (arrayresultTA[outNbElement - 2] > arrayresultTA[outNbElement - 1] && arrayresultTA[outNbElement - 3] > arrayresultTA[outNbElement - 2])
+                this.tendency = Tendency.low;
+
+
             if (value > -20)
                 return Operation.sell;
             if (value < -80)

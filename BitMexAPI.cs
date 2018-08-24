@@ -71,10 +71,18 @@ namespace BitMEX
             return hex.ToString();
         }
 
+        static object objLock = new object();
         private long GetNonce()
         {
-            DateTime yearBegin = new DateTime(2018, 1, 1);
-            return DateTime.UtcNow.Ticks - yearBegin.Ticks;
+            //lock (objLock)
+            {
+                System.Threading.Thread.Sleep(800);
+                DateTime yearBegin = new DateTime(2018, 1, 1);
+                return DateTime.UtcNow.Ticks - yearBegin.Ticks;
+                //long ret = long.Parse(DateTime.UtcNow.ToString("yyyyMMddHHmmssffff"));
+                //return ret;
+            }
+
         }
 
         private byte[] hmacsha256(byte[] keyByte, byte[] messageBytes)
@@ -85,58 +93,62 @@ namespace BitMEX
             }
         }
 
+        static object objLockQuery= new object();
         private string Query(string method, string function, Dictionary<string, string> param = null, bool auth = false, bool json = false)
         {
-            string paramData = json ? BuildJSON(param) : BuildQueryData(param);
-            string url = "/api/v1" + function + ((method == "GET" && paramData != "") ? "?" + paramData : "");
-            string postData = (method != "GET") ? paramData : "";
-
-            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(domain + url);
-            webRequest.Method = method;
-
-            if (auth)
+         //   lock (objLockQuery)
             {
-                string nonce = GetNonce().ToString();
-                string message = method + url + nonce + postData;
-                byte[] signatureBytes = hmacsha256(Encoding.UTF8.GetBytes(apiSecret), Encoding.UTF8.GetBytes(message));
-                string signatureString = ByteArrayToString(signatureBytes);
+                string paramData = json ? BuildJSON(param) : BuildQueryData(param);
+                string url = "/api/v1" + function + ((method == "GET" && paramData != "") ? "?" + paramData : "");
+                string postData = (method != "GET") ? paramData : "";
 
-                webRequest.Headers.Add("api-nonce", nonce);
-                webRequest.Headers.Add("api-key", apiKey);
-                webRequest.Headers.Add("api-signature", signatureString);
-            }
+                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(domain + url);
+                webRequest.Method = method;
 
-            try
-            {
-                if (postData != "")
+                if (auth)
                 {
-                    webRequest.ContentType = json ? "application/json" : "application/x-www-form-urlencoded";
-                    var data = Encoding.UTF8.GetBytes(postData);
-                    using (var stream = webRequest.GetRequestStream())
+                    string nonce = GetNonce().ToString();
+                    string message = method + url + nonce + postData;
+                    byte[] signatureBytes = hmacsha256(Encoding.UTF8.GetBytes(apiSecret), Encoding.UTF8.GetBytes(message));
+                    string signatureString = ByteArrayToString(signatureBytes);
+
+                    webRequest.Headers.Add("api-nonce", nonce);
+                    webRequest.Headers.Add("api-key", apiKey);
+                    webRequest.Headers.Add("api-signature", signatureString);
+                }
+
+                try
+                {
+                    if (postData != "")
                     {
-                        stream.Write(data, 0, data.Length);
+                        webRequest.ContentType = json ? "application/json" : "application/x-www-form-urlencoded";
+                        var data = Encoding.UTF8.GetBytes(postData);
+                        using (var stream = webRequest.GetRequestStream())
+                        {
+                            stream.Write(data, 0, data.Length);
+                        }
+                    }
+
+                    using (WebResponse webResponse = webRequest.GetResponse())
+                    using (Stream str = webResponse.GetResponseStream())
+                    using (StreamReader sr = new StreamReader(str))
+                    {
+                        return sr.ReadToEnd();
                     }
                 }
-
-                using (WebResponse webResponse = webRequest.GetResponse())
-                using (Stream str = webResponse.GetResponseStream())
-                using (StreamReader sr = new StreamReader(str))
+                catch (WebException wex)
                 {
-                    return sr.ReadToEnd();
-                }
-            }
-            catch (WebException wex)
-            {
-                using (HttpWebResponse response = (HttpWebResponse)wex.Response)
-                {
-                    if (response == null)
-                        throw;
-
-                    using (Stream str = response.GetResponseStream())
+                    using (HttpWebResponse response = (HttpWebResponse)wex.Response)
                     {
-                        using (StreamReader sr = new StreamReader(str))
+                        if (response == null)
+                            throw;
+
+                        using (Stream str = response.GetResponseStream())
                         {
-                            return sr.ReadToEnd();
+                            using (StreamReader sr = new StreamReader(str))
+                            {
+                                return sr.ReadToEnd();
+                            }
                         }
                     }
                 }
@@ -279,8 +291,10 @@ namespace BitMEX
         }
 
         public string GetWallet()
-        {            
-            return Query("GET", "/user/wallet", null, true);
+        {
+            var param = new Dictionary<string, string>();
+            param["currency"] = "XBt";
+            return Query("GET", "/user/walletHistory", param, true);
         }
 
 

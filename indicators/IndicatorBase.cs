@@ -24,6 +24,7 @@ public class IndicatorBase
         return null;
     }
 
+    public Tendency tendency = Tendency.nothing;
     public int period = 14;
     public double result = 0;
     public double result2 = 0;

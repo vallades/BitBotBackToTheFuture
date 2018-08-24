@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-    public class IndicatorMA:IndicatorBase, IIndicator
-    {
+public class IndicatorMA : IndicatorBase, IIndicator
+{
 
-        public IndicatorMA()
-        {
-            this.indicator = this;
-        }
+    public IndicatorMA()
+    {
+        this.indicator = this;
+    }
 
 
     public void setPeriod(int period)
@@ -18,47 +18,57 @@ using System.Threading.Tasks;
         this.period = period;
     }
 
+    public TypeIndicator getTypeIndicator()
+    {
+        return TypeIndicator.Cross;
+    }
+
     public string getName()
+    {
+        return "MA";
+    }
+
+    public double getResult()
+    {
+        return this.result;
+    }
+
+    public Tendency getTendency()
+    {
+        return this.tendency;
+    }
+
+    public double getResult2()
+    {
+        return this.result2;
+    }
+
+    public Operation GetOperation(double[] arrayPriceOpen, double[] arrayPriceClose, double[] arrayPriceLow, double[] arrayPriceHigh, double[] arrayVolume)
+    {
+        try
         {
-            return "MA";
+            int outBegidxLonga, outNbElementLonga, outBegidxCurta, outNbElementCurta;
+            double[] arrayLonga = new double[arrayPriceClose.Length];
+            TicTacTec.TA.Library.Core.MovingAverage(0, arrayPriceClose.Length - 1, arrayPriceClose, this.period*2, TicTacTec.TA.Library.Core.MAType.Ema, out outBegidxLonga, out outNbElementLonga, arrayLonga);
+            double value = arrayLonga[outNbElementLonga - 1];
+            this.result = value;
+
+            double[] arrayCurta = new double[arrayPriceClose.Length];
+            TicTacTec.TA.Library.Core.MovingAverage(0, arrayPriceClose.Length - 1, arrayPriceClose, this.period, TicTacTec.TA.Library.Core.MAType.Ema, out outBegidxCurta, out outNbElementCurta, arrayCurta);
+            double value2 = arrayCurta[outNbElementCurta - 1];
+            this.result2 = value2;
+
+
+            if ((arrayLonga[outNbElementLonga - 2] >= arrayCurta[outNbElementCurta - 2]) && arrayCurta[outNbElementCurta - 1] > arrayLonga[outNbElementLonga - 1])
+                return Operation.buy;
+            if ((arrayLonga[outNbElementLonga - 2] <= arrayCurta[outNbElementCurta - 2]) && arrayCurta[outNbElementCurta - 1] < arrayLonga[outNbElementLonga - 1])
+                return Operation.sell;
+
+            return Operation.nothing;
         }
-
-        public double getResult()
+        catch
         {
-            return this.result;
-        }
-
-        public double getResult2()
-        {
-            return this.result2;
-        }
-
-        public Operation GetOperation(double[] arrayPriceOpen, double[] arrayPriceClose, double[] arrayPriceLow, double[] arrayPriceHigh, double[] arrayVolume)
-        {
-            try
-            {
-                int outBegidxLonga, outNbElementLonga, outBegidxCurta, outNbElementCurta;
-                double[] arrayLonga = new double[arrayPriceClose.Length];                
-                TicTacTec.TA.Library.Core.MovingAverage(0, arrayPriceClose.Length - 1,arrayPriceClose,5,TicTacTec.TA.Library.Core.MAType.Ema, out outBegidxLonga, out outNbElementLonga, arrayLonga);
-                double value = arrayLonga[outNbElementLonga - 1];
-                this.result = value;
-
-                double[]  arrayCurta = new double[arrayPriceClose.Length];
-                TicTacTec.TA.Library.Core.MovingAverage(0, arrayPriceClose.Length - 1, arrayPriceClose, 3, TicTacTec.TA.Library.Core.MAType.Ema, out outBegidxCurta, out outNbElementCurta, arrayCurta);
-                double value2 = arrayCurta[outNbElementCurta - 1];
-                this.result2 = value2;                
-                    
-                
-                if ((arrayLonga[outNbElementLonga - 2] >= arrayCurta[outNbElementCurta - 2]) && arrayCurta[outNbElementCurta - 1] > arrayLonga[outNbElementLonga - 1])
-                    return Operation.buy;
-                if ((arrayLonga[outNbElementLonga - 2] <= arrayCurta[outNbElementCurta - 2]) && arrayCurta[outNbElementCurta - 1] < arrayLonga[outNbElementLonga - 1])
-                    return Operation.sell;
-
-                return Operation.nothing;
-            }
-            catch
-            {
-                return Operation.nothing;
-            }
+            return Operation.nothing;
         }
     }
+}

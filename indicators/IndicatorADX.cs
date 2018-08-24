@@ -54,4 +54,14 @@ public class IndicatorADX : IndicatorBase, IIndicator
     {
         return this.result2;
     }
+
+    public TypeIndicator getTypeIndicator()
+    {
+        return TypeIndicator.Normal;
+    }
+
+    public Tendency getTendency()
+    {
+        return this.tendency;
+    }
 }
