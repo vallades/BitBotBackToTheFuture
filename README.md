@@ -4,79 +4,95 @@ Bot of Bitmax
 Example file "key.txt" (Configuration)
 
 {
-  
 
-"key": "SUAKEY",
-  
-"secret": "SECRETKEY",
-  
-"domain": "https://www.bitmex.com",
-  
-"pair": "XBTUSD",
-  
-"contract": 30,
-  
-"profit": 0.09,
-  
-"fee": 0.075,
-  
-"long": "enable",
-  
-"short": "enable",
-  
-"interval": 15000,
-  
-"intervalOrder": 60000,
-  
+"key":"",
+
+"secret":"",
+
+"domain":"https://testnet.bitmex.com",
+
+"pair":"XBTUSD",
+
+"contract":300,
+
+"profit":0.2,
+
+"fee":0.075,
+
+"long":"enable",
+
+"short":"enable",
+
+"interval":2000,
+
+"intervalOrder":60000,
+
 "timeGraph":"1m",
-  
+
+
 "webserver":"enable",
-  
+
 "webserverConfig":"http://localhost:5321/bot/",
-  
+
 "webserverIntervalCapture":300000,
-  
 
-"indicatorsEntry": [
-    
+"webserverKey":"",
+
+"webserverSecret":"",
+
+
+"indicatorsEntry":[
 
 	{
-       "name": "MFI",
-      
-		"period": 8    
+		
+"name":"CCI",
+
+		"period":8
 	},
-    
 	{
-      
-		"name": "RSI",
-     
-		"period": 7    
-        },
-    
+		
+"name":"RSI",
+
+		"period":8
+	},
 	{
-      
-		"name": "BBANDS",
-      
-		"period": 9    
+		
+"name":"BBANDS",
+
+		"period":7
+	}	
+],
+
+
+
+"indicatorsEntryCross":[
+
+
+		{
+			
+"name":"MA",
+
+			"period":5
+		}
+
+
+],
+
+"indicatorsEntryDecision":[
+
+
+	{
+		
+"name":"RSI",
+
+		"period":8,
+		"decision":"enable",
+		"decisionPoint":40,
+		"tendency":"enable"
 	}
-  
 	
 
-	],
-
-
-
-"indicatorsEntryCross": [
-    
-
-	{
-       "name": "MFI",
-      
-		"period": 8 
-	}    	
-
 	]
-
 
 
 }
