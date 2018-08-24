@@ -479,8 +479,8 @@ class MainClass
         catch (Exception ex)
         {
             log("GETCANDLES::" + ex.Message + ex.StackTrace);
-            log("wait " + intervalOrder + "ms");
-            Thread.Sleep(intervalOrder);
+            //log("wait " + intervalOrder + "ms");
+            //Thread.Sleep(intervalOrder);
             return false;
         }
 
